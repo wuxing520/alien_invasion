@@ -3,6 +3,7 @@ import pygame
 from alien import Alien
 from button import Button
 from game_stats import GameStats
+from scoreboard import ScoreBoard
 from settings import Settings
 from ship import Ship
 import game_functions as gf
@@ -22,6 +23,8 @@ def run_game():
 
     # 创建一个用于存储游戏统计信息的实例
     stats = GameStats(ai_settings)
+    # 创建存储游戏统计信息的实例，创建记分牌
+    sb = ScoreBoard(ai_settings, screen, stats)
 
     # print(pygame.display.list_modes())
 
@@ -38,15 +41,15 @@ def run_game():
     # 开始游戏的主循环
     while True:
         # 监视键盘和鼠标事件
-        gf.check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
+        gf.check_events(ai_settings, screen, stats, sb, play_button, ship, aliens, bullets)
 
         if stats.game_active:
             ship.update()
             bullets.update()
-            gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
-            gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
+            gf.update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets)
+            gf.update_aliens(ai_settings, stats, sb, screen, ship, aliens, bullets)
 
-        gf.update_screen(ai_settings, screen, stats, ship, bullets, aliens, play_button)
+        gf.update_screen(ai_settings, screen, stats, sb, ship, bullets, aliens, play_button)
 
 
 run_game()
