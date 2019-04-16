@@ -240,5 +240,7 @@ def check_high_score(stats, sb):
 
 def save_score_file(stats):
     """将最高得分保存在文件中"""
-    with open('images/score.txt', 'w') as score_file:
-        score_file.write(str(int(round(stats.high_score, -1))))
+    with open('images/score.txt', 'a') as score_file:
+        import time
+        score_file.write("\n" + time.strftime('%Y-%m-%d  %H:%M:%S') + "\t" +
+                         str(int(round(stats.high_score, -1))))
